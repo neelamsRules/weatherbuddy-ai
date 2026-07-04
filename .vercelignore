@@ -1,0 +1,6 @@
+.env
+.git/
+.vercel/
+output/
+pptx_extract/
+WeatherBuddy_AI.zip
