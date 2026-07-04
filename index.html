@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WeatherBuddy AI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Weather controls">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">WB</div>
+          <div>
+            <h1>WeatherBuddy AI</h1>
+            <p>Your weather expert. Your daily friend.</p>
+          </div>
+        </div>
+
+        <form class="search-panel" id="searchForm">
+          <label for="placeInput">Location</label>
+          <div class="search-row">
+            <input id="placeInput" name="place" type="search" value="New Delhi" autocomplete="off" placeholder="City, district, or place">
+            <button class="icon-button" type="submit" title="Search location" aria-label="Search location">GO</button>
+            <button class="icon-button" id="geoButton" type="button" title="Use current location" aria-label="Use current location">GPS</button>
+          </div>
+        </form>
+
+        <div class="quick-cities" aria-label="Quick city choices">
+          <button type="button" data-city="New Delhi">Delhi</button>
+          <button type="button" data-city="Mumbai">Mumbai</button>
+          <button type="button" data-city="Bengaluru">Bengaluru</button>
+          <button type="button" data-city="Chennai">Chennai</button>
+          <button type="button" data-city="Kolkata">Kolkata</button>
+          <button type="button" data-city="Guwahati">Guwahati</button>
+        </div>
+
+        <section class="control-group" aria-labelledby="activityHeading">
+          <h2 id="activityHeading">Activity</h2>
+          <div class="segmented" id="activityTabs" role="tablist" aria-label="Activity type">
+            <button class="active" type="button" data-activity="commute">Commute</button>
+            <button type="button" data-activity="outdoor">Outdoor</button>
+            <button type="button" data-activity="farming">Farming</button>
+            <button type="button" data-activity="logistics">Logistics</button>
+          </div>
+
+          <label for="tripDay">Planning day</label>
+          <input id="tripDay" type="range" min="0" max="13" value="0">
+          <div class="range-labels">
+            <span>Today</span>
+            <span id="tripDayLabel">Today</span>
+          </div>
+        </section>
+
+        <section class="control-group" aria-labelledby="routeHeading">
+          <h2 id="routeHeading">Route Watch</h2>
+          <label for="routeInput">Stops</label>
+          <textarea id="routeInput" rows="4" placeholder="Example: Pune, Lonavala, Mumbai"></textarea>
+          <button class="primary-button" id="routeButton" type="button">Check route risk</button>
+          <div class="route-results" id="routeResults"></div>
+        </section>
+      </aside>
+
+      <main class="dashboard">
+        <section class="map-band" aria-label="Location map">
+          <iframe id="mapFrame" title="Selected location map" loading="lazy"></iframe>
+          <div class="map-overlay">
+            <p id="locationLabel">New Delhi, India</p>
+            <span id="updatedLabel">Waiting for weather data</span>
+          </div>
+        </section>
+
+        <section class="current-grid" aria-label="Current forecast">
+          <article class="current-panel">
+            <div class="weather-symbol" id="weatherSymbol" aria-hidden="true">SUN</div>
+            <div>
+              <p class="eyebrow">Now</p>
+              <h2 id="currentTemp">--&deg;C</h2>
+              <p id="currentSummary">Loading forecast...</p>
+            </div>
+          </article>
+          <article class="metric-panel">
+            <p>Rain</p>
+            <strong id="rainChance">--%</strong>
+            <span id="rainAmount">-- mm</span>
+          </article>
+          <article class="metric-panel">
+            <p>Wind</p>
+            <strong id="windSpeed">-- km/h</strong>
+            <span id="windDirection">--</span>
+          </article>
+          <article class="metric-panel">
+            <p>AQI</p>
+            <strong id="aqiValue">--</strong>
+            <span id="aqiLabel">Loading</span>
+          </article>
+        </section>
+
+        <section class="advice-band" aria-label="Personalized advice">
+          <div class="avatar" id="avatar" aria-hidden="true">
+            <div class="avatar-face"><span></span></div>
+          </div>
+          <div>
+            <p class="eyebrow">Sunny Sam says</p>
+            <h2 id="adviceTitle">Checking the sky</h2>
+            <p id="adviceText">I am combining rain, UV, wind, and AQI signals for a useful daily call.</p>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <article class="forecast-panel">
+            <div class="section-heading">
+              <h2>14-Day Forecast</h2>
+              <span id="modelSource">Live forecast plus AI-ready correction layer</span>
+            </div>
+            <div class="daily-list" id="dailyList"></div>
+          </article>
+
+          <article class="forecast-panel">
+            <div class="section-heading">
+              <h2>Activity Window</h2>
+              <span id="activityName">Commute</span>
+            </div>
+            <div class="hourly-chart" id="hourlyChart"></div>
+            <p class="activity-note" id="activityNote">Forecast guidance will appear after loading.</p>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="forecast-panel">
+            <div class="section-heading">
+              <h2>AI Engine</h2>
+              <span>Deck-aligned architecture</span>
+            </div>
+            <div class="model-stack">
+              <div>
+                <strong>ML ensemble engine</strong>
+                <p>Blend ECMWF, GFS, IMD, ERA5, satellite products, CPCB AQI, terrain, and elevation features.</p>
+              </div>
+              <div>
+                <strong>XGBoost and LightGBM correction</strong>
+                <p>Learn local model bias from historical sensors so the app can move from city weather to block-level guidance.</p>
+              </div>
+              <div>
+                <strong>Retention loop</strong>
+                <p>Named companions such as Sunny Sam and Rainy Ria convert raw values into memorable daily decisions.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="forecast-panel">
+            <div class="section-heading">
+              <h2>Business Model</h2>
+              <span>Revenue mix</span>
+            </div>
+            <div class="risk-list" id="riskList"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div class="status-toast" id="statusToast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
